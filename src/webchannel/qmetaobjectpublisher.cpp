@@ -565,7 +565,9 @@ QJsonValue QMetaObjectPublisher::wrapResult(const QVariant &result, QWebChannelA
             // check if this transport is already assigned to the object
             if (transport && !wrappedObjects.value(id).transports.contains(transport))
                 wrappedObjects[id].transports.append(transport);
-            classInfo = wrappedObjects.value(id).classinfo;
+            // NOTE: Causes stale cache issues!
+            // classInfo = wrappedObjects.value(id).classinfo;
+            classInfo = classInfoForObject(object, transport);
         }
 
         QJsonObject objectInfo;
